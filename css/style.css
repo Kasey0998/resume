@@ -28,6 +28,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 1rem);
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -1373,7 +1374,8 @@ body.cursor-active .cursor-ring {
   margin-top: 1.2rem;
 }
 
-.project-actions a {
+.project-actions a,
+.project-details summary {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -1382,11 +1384,202 @@ body.cursor-active .cursor-ring {
   color: var(--cyan);
   background: rgba(0, 229, 255, 0.05);
   transition: border-color 180ms ease, color 180ms ease;
+  cursor: pointer;
 }
 
-.project-actions a:hover {
+.project-actions a:hover,
+.project-details summary:hover {
   border-color: var(--yellow);
   color: var(--yellow);
+}
+
+.project-details {
+  min-width: 0;
+}
+
+.project-details summary {
+  list-style: none;
+  color: var(--green);
+  border-color: var(--line);
+  background: rgba(0, 255, 204, 0.06);
+}
+
+.project-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-details[open] {
+  flex-basis: 100%;
+}
+
+.project-study {
+  display: grid;
+  gap: 1.35rem;
+  margin-top: 1.5rem;
+}
+
+.project-study-section h4 {
+  margin: 0 0 0.5rem;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.project-study-section p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.project-study-section ul {
+  display: grid;
+  gap: 0.6rem;
+  color: var(--muted);
+}
+
+.project-study-section ul li {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.project-study-section ul li::before {
+  content: ">";
+  flex-shrink: 0;
+  color: var(--green);
+  font-family: var(--font-mono);
+}
+
+.project-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.project-flow li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0.7rem 0.5rem;
+  border: 1px solid var(--line);
+  color: var(--green);
+  background: rgba(0, 255, 204, 0.04);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.project-flow li:not(:last-child)::after {
+  content: "\2192";
+  position: absolute;
+  right: -1.05rem;
+  color: var(--cyan);
+}
+
+.project-study-outcome {
+  padding: 1rem;
+  border-left: 2px solid var(--green);
+  background: rgba(0, 255, 204, 0.05);
+}
+
+.project-study-outcome h4 {
+  color: var(--green);
+}
+
+body.project-dialog-open {
+  overflow-y: hidden;
+  cursor: auto;
+}
+
+body.project-dialog-open a,
+body.project-dialog-open button {
+  cursor: pointer;
+}
+
+.project-dialog {
+  width: min(850px, calc(100vw - 2rem));
+  max-width: none;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  padding: clamp(1.1rem, 3vw, 2rem);
+  border: 1px solid var(--line-hot);
+  color: var(--text);
+  background: var(--bg-deep);
+  box-shadow: var(--shadow-cyan);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.project-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(5px);
+}
+
+.project-dialog-chrome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.project-dialog-close {
+  min-height: 44px;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  background: transparent;
+  cursor: pointer;
+}
+
+.project-dialog-close:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.project-dialog h2 {
+  margin: 1.25rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
+  line-height: 1.05;
+}
+
+.project-dialog-description {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.project-dialog-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.project-dialog-footer p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 600px) {
+  .project-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .project-flow li:not(:last-child)::after {
+    content: "\2193";
+    right: auto;
+    bottom: -1.1rem;
+  }
 }
 
 .placeholder-card {

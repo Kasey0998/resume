@@ -296,6 +296,58 @@
     });
   }
 
+  function initProjectStudies() {
+    const dialog = document.querySelector("[data-project-dialog]");
+    if (!dialog || typeof dialog.showModal !== "function") return;
+
+    const title = dialog.querySelector("[data-project-dialog-title]");
+    const description = dialog.querySelector("[data-project-dialog-description]");
+    const code = dialog.querySelector("[data-project-dialog-code]");
+    const tags = dialog.querySelector("[data-project-dialog-tags]");
+    const content = dialog.querySelector("[data-project-dialog-content]");
+    const email = dialog.querySelector("[data-project-dialog-email]");
+    let trigger;
+
+    document.querySelectorAll("[data-project-details]").forEach((details) => {
+      const summary = details.querySelector("summary");
+      const project = details.closest(".project-window");
+      const study = details.querySelector("[data-project-study]");
+      const projectEmail = project?.querySelector(".project-actions a[href^='mailto:']");
+      if (!summary || !project || !study || !projectEmail) return;
+
+      summary.setAttribute("aria-haspopup", "dialog");
+      summary.setAttribute("aria-controls", dialog.id);
+      summary.addEventListener("click", (event) => {
+        event.preventDefault();
+        trigger = summary;
+        title.textContent = project.querySelector("h3").textContent;
+        description.textContent = project.querySelector("p").textContent;
+        code.textContent = project.querySelector(".project-chrome > span").textContent;
+        tags.replaceChildren(...Array.from(project.querySelector(".tag-list").children, (tag) => tag.cloneNode(true)));
+        content.replaceChildren(study.cloneNode(true));
+        content.querySelectorAll("h4").forEach((heading) => heading.setAttribute("aria-level", "3"));
+        email.href = projectEmail.href;
+        email.setAttribute("aria-label", projectEmail.getAttribute("aria-label"));
+        dialog.showModal();
+        dialog.scrollTop = 0;
+        document.body.classList.add("project-dialog-open");
+      });
+    });
+
+    dialog.querySelector("[data-project-dialog-close]").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target !== dialog) return;
+      const bounds = dialog.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) {
+        dialog.close();
+      }
+    });
+    dialog.addEventListener("close", () => {
+      document.body.classList.remove("project-dialog-open");
+      trigger?.focus({ preventScroll: true });
+    });
+  }
+
   function initFooterYear() {
     const year = document.getElementById("year");
     if (year) year.textContent = new Date().getFullYear();
@@ -317,6 +369,7 @@ KRISHNA.SHARMA // DEVOPS
   initRoleRotator();
   initCustomCursor();
   initPlaceholderLinks();
+  initProjectStudies();
   initFooterYear();
   initConsoleMessage();
 

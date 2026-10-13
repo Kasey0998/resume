@@ -20,6 +20,7 @@ Visit `http://127.0.0.1:4173`.
 - The expandable skills panel distinguishes supporting operational skills, application project experience and foundational knowledge.
 - Experience covers AGAMI-TECH, REDDUSTTEK and TECHNOKRAFT, with supplied employment dates.
 - Five project highlights describe AWS infrastructure, FreeSWITCH containerisation, Jenkins delivery, Linux maintenance and GomataVision CRM.
+- Each project opens a case study with its challenge, contribution, workflow and outcome. Discuss Project opens an email draft with the selected project's name in the subject and message.
 - LinkedIn uses the supplied `https://www.linkedin.com/in/krishna-sharma98` profile. Email and telephone links are available in Contact.
 - The Download CV button serves `assets/documents/Krishna_Sharma_CV.pdf` from the website's own files.
 
@@ -34,6 +35,7 @@ The current stylised portrait is `assets/images/profile-placeholder-generated.jp
 - Responsive navigation, grids, cards and headings support narrow phones, tablets and desktop screens.
 - Mobile navigation supports Escape and keyboard focus; closed links are removed from keyboard navigation.
 - Core content and navigation remain usable without JavaScript or browser storage.
+- Case studies use keyboard-accessible dialogs with Escape, backdrop dismissal and focus return. Without JavaScript or native dialog support, they expand within the project card.
 - Reduced-motion preferences disable animated effects.
 
 ## CV updates
